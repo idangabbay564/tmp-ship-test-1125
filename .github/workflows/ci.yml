@@ -1,0 +1,14 @@
+name: CI
+on:
+  pull_request:
+  push:
+    branches: [main]
+jobs:
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run tests
+        run: |
+          out=$(python3 app.py 7 3)
+          [ "$out" = 21 ] || { echo "AssertionError: expected 21, got $out"; exit 1; }
